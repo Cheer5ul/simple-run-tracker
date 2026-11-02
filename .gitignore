@@ -1,0 +1,16 @@
+# Build output
+bin/
+gen/
+*.prg
+*.prg.debug.xml
+*.iq
+
+# Developer keys (never commit!)
+*.der
+*.pem
+developer_key*
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
