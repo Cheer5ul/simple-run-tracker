@@ -1,7 +1,7 @@
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-class SimpleRunTrackerDelegate extends WatchUi.BehaviorDelegate {
+class MainViewDelegate extends WatchUi.BehaviorDelegate {
 
     function initialize() {
         BehaviorDelegate.initialize();

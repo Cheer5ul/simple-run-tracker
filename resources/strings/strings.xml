@@ -3,6 +3,7 @@
 
     <string id="prompt">Click Start</string>
 
-    <string id="menu_label_1">Item 1</string>
-    <string id="menu_label_2">Item 2</string>
+    <string id="menu_label_continue">Continue</string>
+    <string id="menu_label_save">Save</string>
+    <string id="menu_label_remove">Remove</string>
 </strings>

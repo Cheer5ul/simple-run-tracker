@@ -18,7 +18,7 @@ class SimpleRunTrackerApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new SimpleRunTrackerView(), new SimpleRunTrackerDelegate() ];
+        return [ new MainView(), new MainViewDelegate() ];
     }
 
 }
