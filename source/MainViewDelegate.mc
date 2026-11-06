@@ -8,8 +8,13 @@ class MainViewDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onMenu() as Boolean {
-        WatchUi.pushView(new Rez.Menus.MainMenu(), new SimpleRunTrackerMenuDelegate(), WatchUi.SLIDE_UP);
         return true;
     }
 
+    function onSelect() as Boolean {
+        var v = new TrackerView();
+        WatchUi.pushView(v, new TrackerViewDelegate(v), WatchUi.SLIDE_UP);
+        System.println("Start tracking..");
+        return true;
+    }
 }

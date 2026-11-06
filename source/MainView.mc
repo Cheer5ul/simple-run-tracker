@@ -6,7 +6,6 @@ import Toybox.System;
 class MainView extends WatchUi.View {
 
     public var isRun as Boolean;
-    private var _trackerView as TrackerView?;
 
     function initialize() {
         View.initialize();
@@ -38,8 +37,5 @@ class MainView extends WatchUi.View {
 
     function Start() as Void { 
         isRun = true;
-        _trackerView = new TrackerView();
-        WatchUi.switchToView(_trackerView, new TrackerViewDelegate(_trackerView), WatchUi.SLIDE_UP);
-        System.println("Start trackeing..");
     }
 }
