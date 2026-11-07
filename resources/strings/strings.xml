@@ -6,4 +6,23 @@
     <string id="menu_label_continue">Continue</string>
     <string id="menu_label_save">Save</string>
     <string id="menu_label_remove">Remove</string>
+
+    <string id="speed">Velocity</string>
+    <string id="time">Time</string>
+    <string id="distance">Distance</string>
+
+    <string id="speed_label">km/h</string>
+    <string id="distance_label">m</string>
+
+    <string id="time_ms">ms</string>
+    <string id="time_sec">sec</string>
+    <string id="time_min">min</string>
+    <string id="time_hour">hr</string>
+    
+    <string id="max">max</string>
+    <string id="average">avg</string>
+    <string id="current">cur</string>
+
+    <string id="pulse">pulse</string>
+
 </strings>
