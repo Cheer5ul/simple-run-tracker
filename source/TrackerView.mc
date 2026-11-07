@@ -11,21 +11,21 @@ import Toybox.Lang;
 
 class TrackerView extends WatchUi.View {
 
-    public var isRun as Boolean;
+    public var isRun as Boolean = true;
     private var _session as Session?;
     private var _info as Activity.Info?;
     private var _distance as Float?;
     private var _timer as Timer.Timer?;
     private var _screenShape as ScreenShape?;
 
-    private var _averageSpeed as String;
-    private var _currentSpeed as String;
-    private var _maxSpeed as String;
-    private var _elapsedDistance as String;
-    private var _averageHeartRate as String;
-    private var _currentHeartRate as String;
-    private var _maxHeartRate as String;
-    private var _elapsedTime as Float;
+    private var _averageSpeed as String = "0";
+    private var _currentSpeed as String = "0";
+    private var _maxSpeed as String = "0";
+    private var _elapsedDistance as String = "0";
+    private var _averageHeartRate as String = "0";
+    private var _currentHeartRate as String = "0";
+    private var _maxHeartRate as String = "0";
+    private var _elapsedTime as Float = 0.0;
 
     function initialize() {
         try {
@@ -104,7 +104,7 @@ class TrackerView extends WatchUi.View {
     // loading resources into memory.
     function onShow() as Void {
         Position.enableLocationEvents(Position.LOCATION_CONTINUOUS, method(:onPosition));
-        timer = new Timer.Timer();
+        _timer = new Timer.Timer();
         _timer.start(method(:onTimer), 1000, true);
     }
 
@@ -115,7 +115,7 @@ class TrackerView extends WatchUi.View {
         return false;
     }
 
-    function onTimer() {
+    function onTimer() as Void{
         try {
             if(isSessionRecording() && isRun){
                 var localInfo = Activity.getActivityInfo();
@@ -138,9 +138,40 @@ class TrackerView extends WatchUi.View {
         }
     }
 
-    function updateData(info as Info) as Void {
+    function updateData(info as Activity.Info) as Void {
         if(info) {
-            System.println(info);
+            try {
+                if(info has :averageSpeed){
+                    _averageSpeed = (info.averageSpeed * 3.6).format("%2.1f");
+                }
+                if (info has :currentSpeed && info.currentSpeed != null) {
+                    _currentSpeed = (info.currentSpeed * 3.6).format("%.1f");
+                }
+                if(info has :maxSpeed){
+                    _maxSpeed = (info.maxSpeed * 3.6).format("%2.1f");
+                }
+                if(info has :elapsedDistance){
+                    _elapsedDistance = (info.elapsedDistance).format("%2d");
+                }
+                if (info has :averageHeartRate) {
+                    var avgHr = info.averageHeartRate;
+                    if (avgHr != null) {
+                        _averageHeartRate = avgHr.format("%d");
+                    }
+                }
+                if (info has :currentHeartRate && info.currentHeartRate != null) {
+                    _currentHeartRate = info.currentHeartRate.format("%d");
+                }
+                if (info has :maxHeartRate && info.maxHeartRate != null) {
+                    _maxHeartRate = info.maxHeartRate.format("%d");
+                }
+                if (info has :elapsedTime && info.elapsedTime != null) {
+                    _elapsedTime = info.elapsedTime.toFloat();
+                }
+            }
+            catch (e) {
+                System.println("Error in updateData");
+            }
         }
     }
 
@@ -153,9 +184,50 @@ class TrackerView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
 
         var x = dc.getWidth() / 2;
-        var y = dc.getHeight() / 2;
+        var y = 0;
 
-        dc.drawText(x, y, Graphics.FONT_TINY, "Tracking!", Graphics.TEXT_JUSTIFY_CENTER);
+        var smallFontH = dc.getFontHeight(Graphics.FONT_XTINY);
+        var bigFontH = dc.getFontHeight(Graphics.FONT_TINY);
+
+        var myTime = System.getClockTime();
+        
+        dc.drawText(x, y, Graphics.FONT_TINY, 
+        myTime.hour.format("%02d") + ":" 
+        + myTime.min.format("%02d"), /*+ ":" 
+        + myTime.sec.format("%02d") */
+        Graphics.TEXT_JUSTIFY_CENTER);
+\
+        y += bigFontH;
+
+        dc.drawText(x, y, Graphics.FONT_XTINY,
+        WatchUi.loadResource($.Rez.Strings.speed) + " (" + WatchUi.loadResource($.Rez.Strings.speed_label) + ")",
+        Graphics.TEXT_JUSTIFY_CENTER);
+
+        y += smallFontH;
+
+        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x - 70, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.average), Graphics.TEXT_JUSTIFY_CENTER);
+        
+        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.current), Graphics.TEXT_JUSTIFY_CENTER);
+
+        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x + 70, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.max), Graphics.TEXT_JUSTIFY_CENTER);
+
+        y += smallFontH;
+
+                dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x - 70, y, Graphics.FONT_TINY, _averageSpeed, Graphics.TEXT_JUSTIFY_CENTER);
+        
+        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, Graphics.FONT_TINY, _currentSpeed, Graphics.TEXT_JUSTIFY_CENTER);
+
+        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x + 70, y, Graphics.FONT_TINY, _maxSpeed, Graphics.TEXT_JUSTIFY_CENTER);
+
+        y += bigFontH;
+
+
     }
 
     // Called when this View is removed from the screen. Save the
@@ -163,11 +235,14 @@ class TrackerView extends WatchUi.View {
     // memory.
     function onHide() as Void {
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+        if (_timer != null) {
         _timer.stop();
+        _timer = null;
+}
         _timer = null;   
     }
 
-    function onPosition(info as Info) {
+    function onPosition(info as Position.Info) as Void {
         System.println("OnPosition");
     }
 

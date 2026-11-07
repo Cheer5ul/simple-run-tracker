@@ -15,6 +15,9 @@ class TrackerViewDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onSelect() as Boolean {
+        if(_view.isSessionRecording()){
+            _view.Stop();
+        }
         WatchUi.pushView(new Rez.Menus.MainMenu(), new MainMenuDelegate(_view), WatchUi.SLIDE_UP);
         return true;
     }
