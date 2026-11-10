@@ -11,6 +11,7 @@
     <string id="time">Time</string>
     <string id="distance">Distance</string>
 
+
     <string id="speed_label">km/h</string>
     <string id="distance_label">m</string>
 
@@ -23,6 +24,5 @@
     <string id="average">avg</string>
     <string id="current">cur</string>
 
-    <string id="pulse">pulse</string>
-
+    <string id="heart_rate">Heart Rate</string>
 </strings>
