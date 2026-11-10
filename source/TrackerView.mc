@@ -25,7 +25,7 @@ class TrackerView extends WatchUi.View {
     private var _averageHeartRate as String = "0";
     private var _currentHeartRate as String = "0";
     private var _maxHeartRate as String = "0";
-    private var _elapsedTime as Float = 0.0;
+    private var _elapsedTime as String = "0";
 
     function initialize() {
         try {
@@ -40,7 +40,7 @@ class TrackerView extends WatchUi.View {
         _averageHeartRate = "0";
         _currentHeartRate = "0";
         _maxHeartRate = "0";
-        _elapsedTime = 0.0;
+        _elapsedTime = "0";
         _screenShape = System.getDeviceSettings().screenShape;
         _session = ActivityRecording.createSession({
             :name => "Simple running",
@@ -166,7 +166,19 @@ class TrackerView extends WatchUi.View {
                     _maxHeartRate = info.maxHeartRate.format("%d");
                 }
                 if (info has :elapsedTime && info.elapsedTime != null) {
-                    _elapsedTime = info.elapsedTime.toFloat();
+                    if(info.elapsedTime < 1000) {
+                        // in msec
+                    _elapsedTime = "" + info.elapsedTime.format("%2.1f") + " (" + WatchUi.loadResource($.Rez.Strings.time_ms) + ")";
+                    } else if(info.elapsedTime < 60000) {
+                        // in sec
+                        _elapsedTime = "" + (info.elapsedTime / 1000.0).format("%2.1f") + " (" + WatchUi.loadResource($.Rez.Strings.time_sec) + ")";
+                    } else if(info.elapsedTime < 60000 * 60) {
+                        // in min
+                        _elapsedTime = "" + (info.elapsedTime / 60000.0).format("%2.1f") + " (" + WatchUi.loadResource($.Rez.Strings.time_min) + ")";
+                    } else {
+                        // in hours
+                        _elapsedTime = "" + (info.elapsedTime / 3600000.0).format("%2.1f") + " (" + WatchUi.loadResource($.Rez.Strings.time_hour) + ")";
+                    }
                 }
             }
             catch (e) {
@@ -175,7 +187,7 @@ class TrackerView extends WatchUi.View {
         }
     }
 
-    // Update the view
+    // Update the view using Device context
     function onUpdate(dc as Dc) as Void {
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
@@ -196,7 +208,7 @@ class TrackerView extends WatchUi.View {
         + myTime.min.format("%02d"), /*+ ":" 
         + myTime.sec.format("%02d") */
         Graphics.TEXT_JUSTIFY_CENTER);
-\
+
         y += bigFontH;
 
         dc.drawText(x, y, Graphics.FONT_XTINY,
@@ -216,7 +228,7 @@ class TrackerView extends WatchUi.View {
 
         y += smallFontH;
 
-                dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x - 70, y, Graphics.FONT_TINY, _averageSpeed, Graphics.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
@@ -227,7 +239,51 @@ class TrackerView extends WatchUi.View {
 
         y += bigFontH;
 
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(
+            x, 
+            y, 
+            Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.distance) + " (" + WatchUi.loadResource($.Rez.Strings.distance_label) + ")",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
 
+        y += smallFontH;
+
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, Graphics.FONT_TINY, _elapsedDistance, Graphics.TEXT_JUSTIFY_CENTER);
+
+        y += bigFontH;
+
+        dc.drawText(x, y, Graphics.FONT_XTINY, 
+        WatchUi.loadResource($.Rez.Strings.heart_rate), 
+        Graphics.TEXT_JUSTIFY_CENTER);
+
+        y += smallFontH;
+
+        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x - 70, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.average), Graphics.TEXT_JUSTIFY_CENTER);
+        
+        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.current), Graphics.TEXT_JUSTIFY_CENTER);
+
+        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x + 70, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.max), Graphics.TEXT_JUSTIFY_CENTER);
+        
+        y += bigFontH;
+
+        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x - 70, y, Graphics.FONT_TINY, _averageHeartRate, Graphics.TEXT_JUSTIFY_CENTER);
+        
+        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, Graphics.FONT_TINY, _currentHeartRate, Graphics.TEXT_JUSTIFY_CENTER);
+
+        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x + 70, y, Graphics.FONT_TINY, _maxHeartRate, Graphics.TEXT_JUSTIFY_CENTER);
+
+        y += bigFontH;
+
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y, Graphics.FONT_TINY, _elapsedTime, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     // Called when this View is removed from the screen. Save the
