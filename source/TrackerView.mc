@@ -197,6 +197,7 @@ class TrackerView extends WatchUi.View {
 
         var x = dc.getWidth() / 2;
         var y = 0;
+        var offset = dc.getWidth() * 0.3;
 
         var smallFontH = dc.getFontHeight(Graphics.FONT_XTINY);
         var bigFontH = dc.getFontHeight(Graphics.FONT_TINY);
@@ -218,24 +219,24 @@ class TrackerView extends WatchUi.View {
         y += smallFontH;
 
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x - 70, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.average), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x - offset, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.average), Graphics.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.current), Graphics.TEXT_JUSTIFY_CENTER);
 
         dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x + 70, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.max), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x + offset, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.max), Graphics.TEXT_JUSTIFY_CENTER);
 
         y += smallFontH;
 
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x - 70, y, Graphics.FONT_TINY, _averageSpeed, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x - offset, y, Graphics.FONT_TINY, _averageSpeed, Graphics.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, Graphics.FONT_TINY, _currentSpeed, Graphics.TEXT_JUSTIFY_CENTER);
 
         dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x + 70, y, Graphics.FONT_TINY, _maxSpeed, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x + offset, y, Graphics.FONT_TINY, _maxSpeed, Graphics.TEXT_JUSTIFY_CENTER);
 
         y += bigFontH;
 
@@ -261,24 +262,24 @@ class TrackerView extends WatchUi.View {
         y += smallFontH;
 
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x - 70, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.average), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x - offset, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.average), Graphics.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.current), Graphics.TEXT_JUSTIFY_CENTER);
 
         dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x + 70, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.max), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x + offset, y, Graphics.FONT_XTINY, WatchUi.loadResource($.Rez.Strings.max), Graphics.TEXT_JUSTIFY_CENTER);
         
         y += bigFontH;
 
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x - 70, y, Graphics.FONT_TINY, _averageHeartRate, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x - offset, y, Graphics.FONT_TINY, _averageHeartRate, Graphics.TEXT_JUSTIFY_CENTER);
         
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(x, y, Graphics.FONT_TINY, _currentHeartRate, Graphics.TEXT_JUSTIFY_CENTER);
 
         dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x + 70, y, Graphics.FONT_TINY, _maxHeartRate, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(x + offset, y, Graphics.FONT_TINY, _maxHeartRate, Graphics.TEXT_JUSTIFY_CENTER);
 
         y += bigFontH;
 
