@@ -1,0 +1,28 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">Simple RunTracker</string>
+
+    <string id="prompt">Начать</string>
+
+    <string id="menu_label_continue">Продолжить</string>
+    <string id="menu_label_save">Сохранить</string>
+    <string id="menu_label_remove">Удалить</string>
+
+    <string id="speed">Скорость</string>
+    <string id="time">Время</string>
+    <string id="distance">Расстояние</string>
+
+
+    <string id="speed_label">км/ч</string>
+    <string id="distance_label">м</string>
+
+    <string id="time_ms">мс</string>
+    <string id="time_sec">с</string>
+    <string id="time_min">мин</string>
+    <string id="time_hour">ч</string>
+
+    <string id="max">макс</string>
+    <string id="average">сред</string>
+    <string id="current">тек</string>
+
+    <string id="heart_rate">Пульс</string>
+</strings>

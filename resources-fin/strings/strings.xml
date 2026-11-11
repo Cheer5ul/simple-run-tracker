@@ -1,0 +1,28 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">Simple Run Tracker</string>
+
+    <string id="prompt">Aloita</string>
+
+    <string id="menu_label_continue">Jatka</string>
+    <string id="menu_label_save">Tallenna</string>
+    <string id="menu_label_remove">Poista</string>
+
+    <string id="speed">Nopeus</string>
+    <string id="time">Aika</string>
+    <string id="distance">Matka</string>
+
+
+    <string id="speed_label">km/h</string>
+    <string id="distance_label">m</string>
+
+    <string id="time_ms">ms</string>
+    <string id="time_sec">s</string>
+    <string id="time_min">min</string>
+    <string id="time_hour">h</string>
+    
+    <string id="max">max</string>
+    <string id="average">kesk</string>
+    <string id="current">nyk</string>
+
+    <string id="heart_rate">Syke</string>
+</strings>
