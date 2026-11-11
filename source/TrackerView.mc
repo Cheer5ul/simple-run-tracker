@@ -196,7 +196,7 @@ class TrackerView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
 
         var x = dc.getWidth() / 2;
-        var y = 0;
+        var y = dc.getHeight() * 0.02;
         var offset = dc.getWidth() * 0.3;
 
         var smallFontH = dc.getFontHeight(Graphics.FONT_XTINY);
