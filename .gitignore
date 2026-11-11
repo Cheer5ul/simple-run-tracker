@@ -4,6 +4,7 @@ gen/
 *.prg
 *.prg.debug.xml
 *.iq
+export/
 
 # Developer keys (never commit!)
 *.der
